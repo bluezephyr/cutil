@@ -1,5 +1,6 @@
 # C Utilities
-Utilities for C programs 
+Utilities for C programs
 
-## Circular Buffer
-The module cbuffer implements a circular buffer that can be used to, for example, handle queues of data.
+## Byte Buffer
+The module bytebuffer implements a circular buffer of bytes that can be used to, for example, handle queues of data.
+

@@ -1,5 +1,5 @@
 /*
- * Unit tests for the CBuffer.
+ * Unit tests for the Byte Buffer.
  *
  * Copyright (c) 2020. BlueZephyr
  *
@@ -16,17 +16,17 @@
 
 extern "C"
 {
-    #include "cbuffer.h"
+    #include "bytebuffer.h"
 }
 
-TEST_GROUP(CBuffer)
+TEST_GROUP(ByteBuffer)
 {
     uint8_t data[CAPACITY];
-    cbuffer_t cbuf;
+    bytebuffer_t buffer;
 
     void setup() override
     {
-        cbuf_init(&cbuf, data, CAPACITY);
+        bytebuffer_init(&buffer, data, CAPACITY);
     }
 
     void teardown() override
@@ -40,7 +40,7 @@ TEST_GROUP(CBuffer)
 
         for(i=start; i<end; i++)
         {
-            cbuf_write(&cbuf, i);
+            bytebuffer_write(&buffer, i);
         }
     }
 };
@@ -48,32 +48,32 @@ TEST_GROUP(CBuffer)
 /*******************************************************************************
  * TEST CASES
  *******************************************************************************/
-TEST(CBuffer, init_buffer_empty)
+TEST(ByteBuffer, init_buffer_empty)
 {
     // Init is done in the setup
-    CHECK_TRUE(cbuf_empty(&cbuf));
+    CHECK_TRUE(bytebuffer_empty(&buffer));
 }
 
-TEST(CBuffer, write_one_item_buffer_contain_one_item)
+TEST(ByteBuffer, write_one_item_buffer_contain_one_item)
 {
-    cbuf_write(&cbuf, 0x40);
-    CHECK_FALSE(cbuf_empty(&cbuf));
-    CHECK_FALSE(cbuf_full(&cbuf));
-    CHECK_EQUAL(1, cbuf_size(&cbuf));
+    bytebuffer_write(&buffer, 0x40);
+    CHECK_FALSE(bytebuffer_empty(&buffer));
+    CHECK_FALSE(bytebuffer_full(&buffer));
+    CHECK_EQUAL(1, bytebuffer_size(&buffer));
 }
 
-TEST(CBuffer, write_capacity_and_buffer_is_full)
+TEST(ByteBuffer, write_capacity_and_buffer_is_full)
 {
     write_range(0, CAPACITY);
-    CHECK_FALSE(cbuf_empty(&cbuf));
-    CHECK_TRUE(cbuf_full(&cbuf));
+    CHECK_FALSE(bytebuffer_empty(&buffer));
+    CHECK_TRUE(bytebuffer_full(&buffer));
 }
 
-TEST(CBuffer, write_one_item_read_one_item_buffer_empty)
+TEST(ByteBuffer, write_one_item_read_one_item_buffer_empty)
 {
-    cbuf_write(&cbuf, 0x40);
-    CHECK_EQUAL(0x40, cbuf_read(&cbuf));
-    CHECK_TRUE(cbuf_empty(&cbuf));
+    bytebuffer_write(&buffer, 0x40);
+    CHECK_EQUAL(0x40, bytebuffer_read(&buffer));
+    CHECK_TRUE(bytebuffer_empty(&buffer));
 }
 
 /*******************************************************************************
