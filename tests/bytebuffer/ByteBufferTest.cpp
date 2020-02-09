@@ -51,29 +51,29 @@ TEST_GROUP(ByteBuffer)
 TEST(ByteBuffer, init_buffer_empty)
 {
     // Init is done in the setup
-    CHECK_TRUE(bytebuffer_empty(&buffer));
+    CHECK_TRUE(bytebuffer_isEmpty(&buffer));
 }
 
 TEST(ByteBuffer, write_one_item_buffer_contain_one_item)
 {
     bytebuffer_write(&buffer, 0x40);
-    CHECK_FALSE(bytebuffer_empty(&buffer));
-    CHECK_FALSE(bytebuffer_full(&buffer));
-    CHECK_EQUAL(1, bytebuffer_size(&buffer));
+    CHECK_FALSE(bytebuffer_isEmpty(&buffer));
+    CHECK_FALSE(bytebuffer_isFull(&buffer));
+    CHECK_EQUAL(1, bytebuffer_getSize(&buffer));
 }
 
 TEST(ByteBuffer, write_capacity_and_buffer_is_full)
 {
     write_range(0, CAPACITY);
-    CHECK_FALSE(bytebuffer_empty(&buffer));
-    CHECK_TRUE(bytebuffer_full(&buffer));
+    CHECK_FALSE(bytebuffer_isEmpty(&buffer));
+    CHECK_TRUE(bytebuffer_isFull(&buffer));
 }
 
 TEST(ByteBuffer, write_one_item_read_one_item_buffer_empty)
 {
     bytebuffer_write(&buffer, 0x40);
     CHECK_EQUAL(0x40, bytebuffer_read(&buffer));
-    CHECK_TRUE(bytebuffer_empty(&buffer));
+    CHECK_TRUE(bytebuffer_isEmpty(&buffer));
 }
 
 /*******************************************************************************

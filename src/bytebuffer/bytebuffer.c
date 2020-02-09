@@ -24,17 +24,17 @@ void bytebuffer_init(bytebuffer_t *buffer, uint8_t *data, uint8_t capacity)
     buffer->capacity = capacity;
 }
 
-bool bytebuffer_empty(bytebuffer_t *buffer)
+bool bytebuffer_isEmpty(bytebuffer_t *buffer)
 {
     return (buffer->start == buffer->end);
 }
 
-bool bytebuffer_full(bytebuffer_t *buffer)
+bool bytebuffer_isFull(bytebuffer_t *buffer)
 {
-    return (bytebuffer_size(buffer) == buffer->capacity);
+    return (bytebuffer_getSize(buffer) == buffer->capacity);
 }
 
-uint8_t bytebuffer_size(bytebuffer_t *buffer)
+uint8_t bytebuffer_getSize(bytebuffer_t *buffer)
 {
     return (buffer->start - buffer->end);
 }
