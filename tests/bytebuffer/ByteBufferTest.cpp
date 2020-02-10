@@ -12,7 +12,7 @@
 #include "CppUTest/TestHarness.h"
 
 // CAPACITY must be a power of 2
-#define CAPACITY 16
+#define CAPACITY 8
 
 extern "C"
 {
@@ -74,6 +74,33 @@ TEST(ByteBuffer, write_one_item_read_one_item_buffer_empty)
     bytebuffer_write(&buffer, 0x40);
     CHECK_EQUAL(0x40, bytebuffer_read(&buffer));
     CHECK_TRUE(bytebuffer_isEmpty(&buffer));
+}
+
+TEST(ByteBuffer, fill_buffer_and_read_all)
+{
+    uint8_t i;
+    for(i=0; i<CAPACITY; i++)
+    {
+        bytebuffer_write(&buffer, i);
+    }
+    CHECK_TRUE(bytebuffer_isFull(&buffer));
+    for(i=0; i<CAPACITY; i++)
+    {
+        CHECK_EQUAL(i, bytebuffer_read(&buffer));
+    }
+    CHECK_TRUE(bytebuffer_isEmpty(&buffer));
+}
+
+TEST(ByteBuffer, write_read_repeat_300_times)
+{
+    uint16_t i;
+    for(i=0; i<300; i++)
+    {
+        bytebuffer_write(&buffer, (uint8_t)i);
+        CHECK_FALSE(bytebuffer_isFull(&buffer));
+        CHECK_EQUAL((uint8_t )i, bytebuffer_read(&buffer));
+        CHECK_TRUE(bytebuffer_isEmpty(&buffer));
+    }
 }
 
 /*******************************************************************************
