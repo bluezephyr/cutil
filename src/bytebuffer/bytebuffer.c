@@ -39,6 +39,11 @@ uint8_t bytebuffer_getSize(bytebuffer_t *buffer)
     return (buffer->start - buffer->end);
 }
 
+uint8_t bytebuffer_getSpace(bytebuffer_t *buffer)
+{
+    return (buffer->capacity - bytebuffer_getSize(buffer));
+}
+
 void bytebuffer_write(bytebuffer_t *buffer, uint8_t data)
 {
     buffer->data[mask(buffer, buffer->start++)] = data;

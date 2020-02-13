@@ -52,6 +52,8 @@ TEST(ByteBuffer, init_buffer_empty)
 {
     // Init is done in the setup
     CHECK_TRUE(bytebuffer_isEmpty(&buffer));
+    CHECK_EQUAL(0, bytebuffer_getSize(&buffer));
+    CHECK_EQUAL(CAPACITY, bytebuffer_getSpace(&buffer));
 }
 
 TEST(ByteBuffer, write_one_item_buffer_contain_one_item)
@@ -60,6 +62,7 @@ TEST(ByteBuffer, write_one_item_buffer_contain_one_item)
     CHECK_FALSE(bytebuffer_isEmpty(&buffer));
     CHECK_FALSE(bytebuffer_isFull(&buffer));
     CHECK_EQUAL(1, bytebuffer_getSize(&buffer));
+    CHECK_EQUAL(CAPACITY-1, bytebuffer_getSpace(&buffer));
 }
 
 TEST(ByteBuffer, write_capacity_and_buffer_is_full)

@@ -42,6 +42,11 @@ bool bytebuffer_isFull(bytebuffer_t *buffer);
 uint8_t bytebuffer_getSize(bytebuffer_t *buffer);
 
 /*
+ * Return number of empty space (in bytes) in the buffer.
+ */
+uint8_t bytebuffer_getSpace(bytebuffer_t *buffer);
+
+/*
  * Write one data byte to the buffer.  It is the responsibility of the caller to make sure
  * that there are available room in the buffer before the function is called.  Writing to
  * a full buffer has undefined behavior.
