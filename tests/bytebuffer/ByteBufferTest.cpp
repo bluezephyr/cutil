@@ -12,7 +12,7 @@
 #include "CppUTest/TestHarness.h"
 
 // CAPACITY must be a power of 2
-#define CAPACITY 8
+#define CAPACITY 1024
 
 extern "C"
 {
@@ -34,9 +34,9 @@ TEST_GROUP(ByteBuffer)
     }
 
     // Write range [start..end] not including end
-    void write_range(uint8_t start, uint8_t end)
+    void write_range(uint16_t start, uint16_t end)
     {
-        uint8_t i;
+        uint16_t i;
 
         for(i=start; i<end; i++)
         {
@@ -81,27 +81,27 @@ TEST(ByteBuffer, write_one_item_read_one_item_buffer_empty)
 
 TEST(ByteBuffer, fill_buffer_and_read_all)
 {
-    uint8_t i;
+    uint16_t i;
     for(i=0; i<CAPACITY; i++)
     {
-        bytebuffer_write(&buffer, i);
+        bytebuffer_write(&buffer, (uint8_t)i);
     }
     CHECK_TRUE(bytebuffer_isFull(&buffer));
     for(i=0; i<CAPACITY; i++)
     {
-        CHECK_EQUAL(i, bytebuffer_read(&buffer));
+        CHECK_EQUAL((uint8_t)i, bytebuffer_read(&buffer));
     }
     CHECK_TRUE(bytebuffer_isEmpty(&buffer));
 }
 
-TEST(ByteBuffer, write_read_repeat_300_times)
+TEST(ByteBuffer, write_read_repeat_70000_times)
 {
-    uint16_t i;
-    for(i=0; i<300; i++)
+    uint32_t i;
+    for(i=0; i<70000; i++)
     {
         bytebuffer_write(&buffer, (uint8_t)i);
         CHECK_FALSE(bytebuffer_isFull(&buffer));
-        CHECK_EQUAL((uint8_t )i, bytebuffer_read(&buffer));
+        CHECK_EQUAL((uint8_t)i, bytebuffer_read(&buffer));
         CHECK_TRUE(bytebuffer_isEmpty(&buffer));
     }
 }

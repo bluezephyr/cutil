@@ -17,18 +17,18 @@
 typedef struct bytebuffer
 {
     uint8_t* data;
-    uint8_t capacity;
-    uint8_t start;
-    uint8_t end;
+    uint16_t capacity;
+    uint16_t start;
+    uint16_t end;
 } bytebuffer_t;
 
 /*
  * The init function must be called before the buffer is used.  It is the responsibility
  * of the caller to allocate memory for both the data array and the buffer struct.
  *
- * Note that the capacity of the data array MUST be a power of 2.  Maximum capacity is 128.
+ * Note that the capacity of the data array MUST be a power of 2.  Maximum capacity is 32728.
  */
-void bytebuffer_init(bytebuffer_t *buffer, uint8_t *data, uint8_t capacity);
+void bytebuffer_init(bytebuffer_t *buffer, uint8_t *data, uint16_t capacity);
 
 /*
  * Returns true/full if the buffer is empty/full.
@@ -39,12 +39,12 @@ bool bytebuffer_isFull(bytebuffer_t *buffer);
 /*
  * Return the number of bytes currently stored in the buffer.
  */
-uint8_t bytebuffer_getSize(bytebuffer_t *buffer);
+uint16_t bytebuffer_getSize(bytebuffer_t *buffer);
 
 /*
  * Return number of empty space (in bytes) in the buffer.
  */
-uint8_t bytebuffer_getSpace(bytebuffer_t *buffer);
+uint16_t bytebuffer_getSpace(bytebuffer_t *buffer);
 
 /*
  * Write one data byte to the buffer.  It is the responsibility of the caller to make sure

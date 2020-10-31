@@ -13,10 +13,10 @@
 /*******************************************************************************
  * LOCAL FUNCTION PROTOTYPES
  *******************************************************************************/
-static uint8_t mask(bytebuffer_t *buffer, uint8_t value);
+static uint16_t mask(bytebuffer_t *buffer, uint16_t value);
 
 
-void bytebuffer_init(bytebuffer_t *buffer, uint8_t *data, uint8_t capacity)
+void bytebuffer_init(bytebuffer_t *buffer, uint8_t *data, uint16_t capacity)
 {
     buffer->start = 0;
     buffer->end = 0;
@@ -34,12 +34,12 @@ bool bytebuffer_isFull(bytebuffer_t *buffer)
     return (bytebuffer_getSize(buffer) == buffer->capacity);
 }
 
-uint8_t bytebuffer_getSize(bytebuffer_t *buffer)
+uint16_t bytebuffer_getSize(bytebuffer_t *buffer)
 {
     return (buffer->start - buffer->end);
 }
 
-uint8_t bytebuffer_getSpace(bytebuffer_t *buffer)
+uint16_t bytebuffer_getSpace(bytebuffer_t *buffer)
 {
     return (buffer->capacity - bytebuffer_getSize(buffer));
 }
@@ -57,7 +57,7 @@ uint8_t bytebuffer_read(bytebuffer_t *buffer)
 /*******************************************************************************
  * LOCAL FUNCTIONS
  *******************************************************************************/
-static uint8_t mask(bytebuffer_t *buffer, uint8_t value)
+static uint16_t mask(bytebuffer_t *buffer, uint16_t value)
 {
     return (value & (buffer->capacity - 1u));
 }
